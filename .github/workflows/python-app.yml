@@ -37,5 +37,6 @@ jobs:
     - name: run main
       env:
         TOKEN: ${{ secrets.TOKEN }}
+        TERM: "xterm-color"
       run: |
         python main.py
