@@ -14,4 +14,4 @@ async def on_ready():
     voice_channel = discord.utils.get(bot.get_guild(guild).channels, id = channel)
     await voice_channel.connect()
         
-bot.run(os.getenv["token"], bot=False)
+bot.run(os.getenv["TOKEN"], bot=False)
