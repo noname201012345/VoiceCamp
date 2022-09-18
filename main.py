@@ -1,17 +1,18 @@
-from discord.ext import commands
 import discord
 import os
-import json
+from discord.ext import commands
 
-bot = commands.Bot("!", self_bot=True) # Defining bot.
+client=commands.Bot(command_prefix=':', self_bot=True, help_command=None)
 
-guild=755793441287438469
-channel=994552773637062656
+GUILD_ID = 755793441287438469
+CHANNEL_ID = 994552773637062656
 
-@bot.event # Turning the bot online.
+@client.event
 async def on_ready():
-    print("This program has logged in to the account " + f"{bot.user}.\n")
-    voice_channel = discord.utils.get(bot.get_guild(guild).channels, id = channel)
-    await voice_channel.connect()
-        
-bot.run(os.getenv["TOKEN"], bot=False)
+    os.system('clear')
+    print(f'Logged in as {client.user} ({client.user.id})')
+    vc = discord.utils.get(client.get_guild(GUILD_ID).channels, id = CHANNEL_ID)
+    await vc.connect()
+    print(f"Successfully joined {vc.name} ({vc.id})")
+
+client.run(os.getenv("TOKEN"))
