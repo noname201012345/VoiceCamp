@@ -2,6 +2,7 @@ import requests
 import asyncio
 import json
 import base64
+import os
 
 rtoken = os.getenv("RTOKEN")
 header = {"Authorization": "Bearer {}".format(rtoken)}
