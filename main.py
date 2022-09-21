@@ -3,6 +3,7 @@ import os
 from discord.ext import commands
 import requests
 import asyncio
+import json
 
 client=commands.Bot(command_prefix=':', self_bot=True, help_command=None)
 
