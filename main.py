@@ -22,7 +22,7 @@ async def on_ready():
     vc = discord.utils.get(client.get_guild(GUILD_ID).channels, id = CHANNEL_ID)
     await vc.connect()
     print(f"Successfully joined {vc.name} ({vc.id})")
-    await asyncio.sleep(100)
+    await asyncio.sleep(20000)
     with open("rerun.json", "r") as f:
         rerun = json.load(f)
     if rerun["id"]==1:
