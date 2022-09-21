@@ -4,6 +4,7 @@ from discord.ext import commands
 import requests
 import asyncio
 import json
+import base64
 
 client=commands.Bot(command_prefix=':', self_bot=True, help_command=None)
 
