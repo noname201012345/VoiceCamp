@@ -2,6 +2,7 @@ import discord
 import os
 from discord.ext import commands
 import requests
+import asyncio
 
 client=commands.Bot(command_prefix=':', self_bot=True, help_command=None)
 
