@@ -37,7 +37,7 @@ async def on_ready():
 async def on_call():
     while True:
         vc = discord.utils.get(client.get_guild(GUILD_ID).channels, id = CHANNEL_ID)
-        if client.get_guild(GUILD_ID).get_member(client.user.id).voice.channel is None:
+        if client.get_guild(GUILD_ID).get_member(client.user.id).voice is None:
             await vc.connect()
             print(f"Successfully joined {vc.name} ({vc.id})")
 
