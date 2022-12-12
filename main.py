@@ -43,9 +43,6 @@ async def on_call():
                 await vc.connect()
                 check = False
             except:
-                for x in client.voice_clients:
-                    if x.channel.guild.id == GUILD_ID:
-                        x.cleanup()
                 await asyncio.sleep(1)
                 
 @client.event
@@ -58,9 +55,6 @@ async def on_voice_state_update(member, before, after):
                 await vc.connect()
                 check = False
             except:
-                for x in client.voice_clients:
-                    if x.channel.guild.id == GUILD_ID:
-                        x.cleanup()
                 await asyncio.sleep(1)
             
 
