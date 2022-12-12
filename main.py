@@ -37,7 +37,7 @@ async def on_ready():
 async def on_call():
     if client.get_guild(GUILD_ID).get_member(client.user.id).voice is None:
         check = True
-        while True:
+        while check:
             try:
                 vc = client.get_guild(GUILD_ID).get_channel(CHANNEL_ID)
                 await vc.connect()
@@ -65,5 +65,6 @@ async def on_voice_state_update(member, before, after):
                         for x in client.voice_clients:
                             if x.channel.guild.id == GUILD_ID:
                                 x.cleanup()
+            
 
 client.run(os.getenv("TOKEN"))
