@@ -36,33 +36,34 @@ async def on_ready():
 @client.event
 async def on_call():
     if client.get_guild(GUILD_ID).get_member(client.user.id).voice is None:
-        try:
-            vc = client.get_guild(GUILD_ID).get_channel(CHANNEL_ID)
-            await vc.connect()
-        except:
-            if len(client.voice_clients) > 0:
-                for x in client.voice_clients:
-                    if x.channel.guild.id == GUILD_ID:
-                        await x.disconnect()
-                        x.cleanup()
+        check = True
+        while True:
+            try:
                 vc = client.get_guild(GUILD_ID).get_channel(CHANNEL_ID)
                 await vc.connect()
+                check = False
+            except:
+                await asyncio.sleep(1)
+                for x in client.voice_clients:
+                    if x.channel.guild.id == GUILD_ID:
+                        x.cleanup()
                 
 @client.event
 async def on_voice_state_update(member, before, after):
     if member.id == client.user.id:
-        if before.channel.guild.id == GUILD_ID:
-            if after.channel is None:
-                try:
-                    vc = client.get_guild(GUILD_ID).get_channel(CHANNEL_ID)
-                    await vc.connect()
-                except:
-                    if len(client.voice_clients) > 0:
-                        for x in client.voice_clients:
-                            if x.channel.guild.id == GUILD_ID:
-                                await x.disconnect()
-                                x.cleanup()
+        if after.channel is None:
+            if before.channel.guild.id == GUILD_ID:
+                check = True
+                while check:
+                    print("running")
+                    try:
                         vc = client.get_guild(GUILD_ID).get_channel(CHANNEL_ID)
                         await vc.connect()
+                        check = False
+                    except:
+                        await asyncio.sleep(1)
+                        for x in client.voice_clients:
+                            if x.channel.guild.id == GUILD_ID:
+                                x.cleanup()
 
 client.run(os.getenv("TOKEN"))
