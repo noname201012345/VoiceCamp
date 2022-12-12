@@ -42,28 +42,27 @@ async def on_call():
         except:
             if len(client.voice_clients) > 0:
                 for x in client.voice_clients:
-                    print(x.channel)
-                    await x.disconnect()
-                    x.cleanup()
-                client.voice_clients.clear()
+                    if x.channel.guild.id == GUILD_ID:
+                        await x.disconnect()
+                        x.cleanup()
                 vc = client.get_guild(GUILD_ID).get_channel(CHANNEL_ID)
                 await vc.connect()
                 
 @client.event
 async def on_voice_state_update(member, before, after):
     if member.id == client.user.id:
-        if after.channel is None:
-            try:
-                vc = client.get_guild(GUILD_ID).get_channel(CHANNEL_ID)
-                await vc.connect()
-            except:
-                if len(client.voice_clients) > 0:
-                    for x in client.voice_clients:
-                        print(x.channel)
-                        await x.disconnect()
-                        x.cleanup()
-                    client.voice_clients.clear()
+        if before.channel.guild.id == GUILD_ID:
+            if after.channel is None:
+                try:
                     vc = client.get_guild(GUILD_ID).get_channel(CHANNEL_ID)
                     await vc.connect()
+                except:
+                    if len(client.voice_clients) > 0:
+                        for x in client.voice_clients:
+                            if x.channel.guild.id == GUILD_ID:
+                                await x.disconnect()
+                                x.cleanup()
+                        vc = client.get_guild(GUILD_ID).get_channel(CHANNEL_ID)
+                        await vc.connect()
 
 client.run(os.getenv("TOKEN"))
